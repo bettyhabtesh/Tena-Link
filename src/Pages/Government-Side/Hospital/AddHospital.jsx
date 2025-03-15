@@ -59,16 +59,6 @@ const AddHospital = ({ onClose }) => {
               required
             />
             <input
-              type="number"
-              name="doctors"
-              placeholder="Doctors*"
-              className="border p-2 rounded"
-              onChange={handleChange}
-              min="1"
-              max="500"
-              required
-            />
-            <input
               type="text"
               name="city"
               placeholder="City*"
