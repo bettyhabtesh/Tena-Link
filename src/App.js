@@ -1,56 +1,19 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import Sidebar from "./Pages/Government-Side/sidebar";
-import Header from "./Pages/Government-Side/header";
-import Dashboard from "./Pages/Government-Side/dashboard";
-import Notifications from "./Pages/Government-Side/notification";
-import HospitalList from "./Pages/Government-Side/Hospital/hospitalList";
-import HospitalDetail from "./Pages/Government-Side/Hospital/hospitaldetail";
-
-const MainLayout = () => { 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [currentPage, setCurrentPage] = useState("Dashboard");
-
- 
-  useEffect(() => {
-    if (location.pathname === "/") setCurrentPage("Dashboard");
-    else if (location.pathname === "/hospitals") setCurrentPage("Hospitals");
-    else if (location.pathname === "/notifications") setCurrentPage("Notifications");
-  }, [location.pathname]);
-
-  return (
-    <div className="flex">
-      {/* Sidebar */}
-      <Sidebar
-        onSelect={(page) => {
-          setCurrentPage(page);
-          navigate(page === "Hospitals" ? "/hospitals" : page === "Notifications" ? "/notifications" : "/");
-        }}
-        currentPage={currentPage}
-      />
-
-      {/* Main Content */}
-      <div className="flex-1">
-        <Header title={currentPage} onBack={() => navigate("/")} />
-
-        <div className="p-6">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/hospitals" element={<HospitalList />} />
-            <Route path="/hospital/:id" element={<HospitalDetail />} />
-            <Route path="/notifications" element={<Notifications />} />
-          </Routes>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"; 
+import LoginPage from "./Pages/LoginPage";
+import MainLayout from "./Pages/Government-Side/MainLayout";
+import HospitalAdminLayout from "./Pages/Hospital-Admin/HospitalAdminLayout"; 
 
 function App() {
   return (
     <Router>
-      <MainLayout />
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/government-dashboard/*" element={<MainLayout />} />
+        <Route path="/hospital-dashboard/*" element={<HospitalAdminLayout />} />
+
+        {/* Redirect unknown routes */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </Router>
   );
 }
