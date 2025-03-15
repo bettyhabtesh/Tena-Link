@@ -7,7 +7,7 @@ import Notifications from "./Pages/Government-Side/notification";
 import HospitalList from "./Pages/Government-Side/Hospital/hospitalList";
 import HospitalDetail from "./Pages/Government-Side/Hospital/hospitaldetail";
 
-const MainLayout = () => {
+const MainLayout = () => { 
   const navigate = useNavigate();
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("Dashboard");
