@@ -12,7 +12,7 @@ const MainLayout = () => {
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState("Dashboard");
 
-  // Update currentPage when the route changes
+ 
   useEffect(() => {
     if (location.pathname === "/") setCurrentPage("Dashboard");
     else if (location.pathname === "/hospitals") setCurrentPage("Hospitals");
