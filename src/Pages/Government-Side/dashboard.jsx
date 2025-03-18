@@ -1,9 +1,28 @@
+/** @format */
+
 import { useState } from "react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import { Bar, Doughnut } from "react-chartjs-2";
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from "chart.js";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+} from "chart.js";
+import ChartDataLabels from "chartjs-plugin-datalabels";
 
-ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ChartDataLabels
+);
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("Weekly");
@@ -38,6 +57,24 @@ const Dashboard = () => {
     ],
   };
 
+  const doughnutChartOptions = {
+    plugins: {
+      legend: {
+        display: false,
+      },
+      datalabels: {
+        color: "#FFFFFF",
+        font: {
+          weight: "bold",
+          size: 14,
+        },
+        formatter: (value) => `${value}%`,
+      },
+    },
+    cutout: "70%",
+    responsive: true,
+  };
+
   return (
     <div className="p-6 space-y-6">
       {/* Stats Section - Adjusted Height */}
@@ -55,7 +92,9 @@ const Dashboard = () => {
         <div className="bg-white p-4 rounded-lg shadow-md h-24 flex flex-col justify-between">
           <p className="text-gray-500 text-sm">Pending Hospital Approval</p>
           <h2 className="text-2xl font-bold">7</h2>
-          <button className="text-blue-500 text-xs underline">See details</button>
+          <button className="text-blue-500 text-xs underline">
+            See details
+          </button>
         </div>
 
         {/* Active User Session */}
@@ -76,7 +115,9 @@ const Dashboard = () => {
             <p className="text-gray-500 text-lg font-semibold">
               Total Registered vs. Pending Hospitals
             </p>
-            <button className="text-sm bg-gray-200 px-3 py-1 rounded-md">Daily</button>
+            <button className="text-sm bg-gray-200 px-3 py-1 rounded-md">
+              Daily
+            </button>
           </div>
           <div className="mt-4">
             <Bar data={barChartData} options={barChartOptions} />
@@ -84,9 +125,13 @@ const Dashboard = () => {
         </div>
 
         {/* Data Access Breakdown (Doughnut Chart) */}
-        <div className="bg-white p-6 rounded-lg shadow-md h-64">
-          <p className="text-gray-500">Data Access Breakdown</p>
-          <Doughnut data={doughnutChartData} />
+        <div className="bg-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center">
+          <p className="text-gray-800 font-bold text-lg">
+            Data Access Breakdown
+          </p>
+          <div className="relative w-48 h-48">
+            <Doughnut data={doughnutChartData} options={doughnutChartOptions} />
+          </div>
           <div className="flex space-x-6 mt-4 text-center">
             <div>
               <p className="text-blue-500 text-lg font-bold">53%</p>
@@ -97,21 +142,41 @@ const Dashboard = () => {
               <p className="text-gray-500">Hospitals</p>
             </div>
             <div>
-              <p className="text-blue-500 text-lg font-bold">16%</p>
+              <p className="text-gray-700 text-lg font-bold">16%</p>
               <p className="text-gray-500">Insurances</p>
             </div>
           </div>
         </div>
       </div>
-
       {/* Hospital List Section */}
       <div className="bg-white p-6 rounded-lg shadow-md">
         <div className="flex justify-between border-b pb-2">
           <p className="text-lg font-semibold">Hospital List</p>
           <div className="flex space-x-4 text-blue-500">
-            <button onClick={() => setActiveTab("Weekly")} className={activeTab === "Weekly" ? "border-b-2 border-blue-500" : ""}>Weekly</button>
-            <button onClick={() => setActiveTab("Monthly")} className={activeTab === "Monthly" ? "border-b-2 border-blue-500" : ""}>Monthly</button>
-            <button onClick={() => setActiveTab("Quarterly")} className={activeTab === "Quarterly" ? "border-b-2 border-blue-500" : ""}>Quarterly</button>
+            <button
+              onClick={() => setActiveTab("Weekly")}
+              className={
+                activeTab === "Weekly" ? "border-b-2 border-blue-500" : ""
+              }
+            >
+              Weekly
+            </button>
+            <button
+              onClick={() => setActiveTab("Monthly")}
+              className={
+                activeTab === "Monthly" ? "border-b-2 border-blue-500" : ""
+              }
+            >
+              Monthly
+            </button>
+            <button
+              onClick={() => setActiveTab("Quarterly")}
+              className={
+                activeTab === "Quarterly" ? "border-b-2 border-blue-500" : ""
+              }
+            >
+              Quarterly
+            </button>
           </div>
         </div>
 

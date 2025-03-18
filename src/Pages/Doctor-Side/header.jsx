@@ -27,7 +27,7 @@ const Header = ({ title }) => {
         {/* Notification Bell */}
         <button
           className="relative text-gray-600 hover:text-gray-900"
-          onClick={() => navigate("/government-dashboard/notifications")}
+          onClick={() => navigate("/doctor-dashboard/notifications")}
         >
           <FaBell size={20} />
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded-full">

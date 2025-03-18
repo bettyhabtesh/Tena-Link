@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-const AddHospital = ({ onClose }) => {
+const AddHospital = ({ onClose, onAddHospital }) => {
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     doctors: "",
     city: "",
-    phone: "",
+    phoneNumber: "",
     email: "",
-    image: "",
+    images: [],
   });
   const [successMessage, setSuccessMessage] = useState(false);
 
@@ -17,17 +17,18 @@ const AddHospital = ({ onClose }) => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, image: e.target.files });
+    const files = Array.from(e.target.files);
+    setFormData({ ...formData, images: files });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Hospital Added", formData);
+    onAddHospital(formData);
     setSuccessMessage(true);
     setTimeout(() => {
       setSuccessMessage(false);
-      onClose(); // Close the modal after successful submission
-    }, 2000); // Success message will disappear after 2 seconds
+      onClose();
+    }, 2000);
   };
 
   return (
@@ -42,53 +43,13 @@ const AddHospital = ({ onClose }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <input
-              type="text"
-              name="name"
-              placeholder="Name*"
-              className="border p-2 rounded"
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="address"
-              placeholder="Address*"
-              className="border p-2 rounded"
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="city"
-              placeholder="City*"
-              className="border p-2 rounded"
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone number*"
-              className="border p-2 rounded"
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email*"
-              className="border p-2 rounded"
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="file"
-              name="image"
-              className="border p-2 rounded"
-              onChange={handleFileChange}
-              multiple
-            />
+            <input type="text" name="name" placeholder="Name*" className="border p-2 rounded" onChange={handleChange} required />
+            <input type="text" name="address" placeholder="Address*" className="border p-2 rounded" onChange={handleChange} required />
+            <input type="number" name="doctors" placeholder="Doctors*" className="border p-2 rounded" onChange={handleChange} required />
+            <input type="text" name="city" placeholder="City*" className="border p-2 rounded" onChange={handleChange} required />
+            <input type="text" name="phoneNumber" placeholder="Phone number*" className="border p-2 rounded" onChange={handleChange} required />
+            <input type="email" name="email" placeholder="Email*" className="border p-2 rounded" onChange={handleChange} required />
+            <input type="file" multiple accept="image/*" className="border p-2 rounded col-span-2" onChange={handleFileChange} />
           </div>
 
           <button type="submit" className="bg-blue-500 text-white w-full py-2 rounded-lg">
@@ -96,7 +57,6 @@ const AddHospital = ({ onClose }) => {
           </button>
         </form>
 
-        {/* Success Message Box */}
         {successMessage && (
           <div className="mt-4 p-4 bg-green-100 text-green-600 border border-green-300 rounded">
             <p>Hospital has been registered successfully!</p>

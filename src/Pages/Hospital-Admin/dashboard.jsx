@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import hospital from "..//..//Assets/hospital.jpg";
-import AddPatientModal from "./AddPatientModal"; 
+
 
 const Dashboard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +29,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Enter Patient's National ID */}
+      {/* Enter Patient's National ID 
       <div className="mt-6 flex justify-center">
         <button
           onClick={() => setIsModalOpen(true)}
@@ -37,7 +37,7 @@ const Dashboard = () => {
         >
           Enter patient’s National ID
         </button>
-      </div>
+      </div>*/}
 
       {/* Doctors List */}
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,8 +85,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Add Patient Modal */}
-      <AddPatientModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />
+      {/* Add Patient Modal 
+      <AddPatientModal isOpen={isModalOpen} closeModal={() => setIsModalOpen(false)} />*/}
     </div>
   );
 };
