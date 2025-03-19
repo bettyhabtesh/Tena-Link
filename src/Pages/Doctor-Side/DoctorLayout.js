@@ -1,5 +1,5 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import Sidebar from "./sidebar";
 import Header from "./header";
 import Notifications from "./notification";
@@ -8,7 +8,15 @@ import PatientDetail from "./PatientDetail";
 
 const DoctorLayout = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [currentPage, setCurrentPage] = useState("Patient List");
+
+  // Redirect to 'Patient List' by default when the component mounts
+  useEffect(() => {
+    if (location.pathname === "/doctor-dashboard") {
+      navigate("/doctor-dashboard/patient-list", { replace: true });
+    }
+  }, [location.pathname, navigate]);
 
   // Handle sidebar selection
   const handleSelect = (page) => {
